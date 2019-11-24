@@ -1,0 +1,11 @@
+[package]
+name = "binio"
+version = "0.1.1"
+authors = ["Zeroeh"]
+edition = "2018"
+description = "Binio is a package for reading and writing binary data to a buffer. It's most often used in IO where low bandwidth usage is a necessity."
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/Zeroeh/binio-rs"
+
+
