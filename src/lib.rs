@@ -1,5 +1,3 @@
-
-
 pub struct Buffer {
     pub index: usize,
     pub length: usize,
@@ -67,14 +65,10 @@ impl Buffer {
         return *s as u8;
     }
     pub fn read_f64(&mut self) -> f64 {
-        let s = self.read_u64();
-        self.index += SIZE_LONG;
-        return s as f64;
+        return f64::from_bits(self.read_u64());
     }
     pub fn read_f32(&mut self) -> f32 {
-        let s = self.read_u32();
-        self.index += SIZE_INT;
-        return s as f32;
+        return f32::from_bits(self.read_u32());
     }
     pub fn read_string() -> String {
         return String::from("");
@@ -121,9 +115,9 @@ impl Buffer {
         self.index += SIZE_BYTE;
     }
     pub fn write_f64(&mut self, num: f64) {
-        self.write_u64(num as u64);
+        self.write_u64(num.to_bits());
     }
     pub fn write_f32(&mut self, num: f32) {
-        self.write_u32(num as u32);
+        self.write_u32(num.to_bits());
     }
 }
