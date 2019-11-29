@@ -64,6 +64,18 @@ impl Buffer {
         self.index += SIZE_BYTE;
         return *s as u8;
     }
+    pub fn read_i64(&mut self) -> i64 {
+        self.read_u64() as i64
+    }
+    pub fn read_i32(&mut self) -> i32 {
+        self.read_u32() as i32
+    }
+    pub fn read_i16(&mut self) -> i16 {
+        self.read_u16() as i16
+    }
+    pub fn read_i8(&mut self) -> i8 {
+        self.read_u8() as i8
+    }
     pub fn read_f64(&mut self) -> f64 {
         return f64::from_bits(self.read_u64());
     }
@@ -132,6 +144,18 @@ impl Buffer {
     pub fn write_u8(&mut self, num: u8) {
         self.data.push(num);
         self.index += SIZE_BYTE;
+    }
+    pub fn write_i64(&mut self, num: i64) {
+        self.write_u64(num as u64);
+    }
+    pub fn write_i32(&mut self, num: i32) {
+        self.write_u32(num as u32);
+    }
+    pub fn write_i16(&mut self, num: i16) {
+        self.write_u16(num as u16);
+    }
+    pub fn write_i8(&mut self, num: i8) {
+        self.write_u8(num as u8);
     }
     pub fn write_f64(&mut self, num: f64) {
         self.write_u64(num.to_bits());

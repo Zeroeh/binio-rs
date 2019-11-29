@@ -33,3 +33,13 @@ fn test_strings() {
     let f = x.read_string();
     assert_eq!(r, f);
 }
+
+#[test]
+fn test_signed_unsigned() {
+    let r = -1;
+    let mut x = binio::new_buffer(0);
+    x.write_i32(r);
+    x.index = 0;
+    let f = x.read_i32();
+    assert_eq!(r, f);
+}
