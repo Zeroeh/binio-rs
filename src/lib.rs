@@ -104,6 +104,14 @@ impl Buffer {
         }
         return s;
     }
+    pub fn read_bool(&mut self) -> bool {
+        let x = self.read_u8();
+        if x == 0 {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     // Write functions
     pub fn write_u64(&mut self, num: u64) {
@@ -179,6 +187,13 @@ impl Buffer {
         }
         for i in val.into_bytes().iter() {
             self.write_u8(*i);
+        }
+    }
+    pub fn write_bool(&mut self, b: bool) {
+        if b == false {
+            self.write_u8(0);
+        } else {
+            self.write_u8(1);
         }
     }
 }
