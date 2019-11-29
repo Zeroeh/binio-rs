@@ -36,7 +36,7 @@ const SIZE_INT: usize = 4;
 const SIZE_LONG: usize = 8;
 
 impl Buffer {
-    //Read functions
+    // Read functions
     pub fn read_u64(&mut self) -> u64 {
         let s = &self.data[self.index..self.index + SIZE_LONG];
         self.index += SIZE_LONG;
@@ -70,8 +70,27 @@ impl Buffer {
     pub fn read_f32(&mut self) -> f32 {
         return f32::from_bits(self.read_u32());
     }
-    pub fn read_string() -> String {
-        return String::from("");
+    pub fn read_string(&mut self) -> String {
+        let size = self.read_u16();
+        let mut s = String::new();
+        if size == 0 {
+            return s;
+        };
+        for _ in 0..size {
+            s.push(self.read_u8() as char);
+        }
+        return s;
+    }
+    pub fn read_utf_string(&mut self) -> String {
+        let size = self.read_u32();
+        let mut s = String::new();
+        if size == 0 {
+            return s;
+        };
+        for _ in 0..size {
+            s.push(self.read_u8() as char);
+        }
+        return s;
     }
 
     // Write functions
@@ -119,5 +138,23 @@ impl Buffer {
     }
     pub fn write_f32(&mut self, num: f32) {
         self.write_u32(num.to_bits());
+    }
+    pub fn write_string(&mut self, val: String) {
+        self.write_u16(val.len() as u16);
+        if val.len() == 0 {
+            return;
+        }
+        for i in val.into_bytes().iter() {
+            self.write_u8(*i);
+        }
+    }
+    pub fn write_utf_string(&mut self, val: String) {
+        self.write_u32(val.len() as u32);
+        if val.len() == 0 {
+            return;
+        }
+        for i in val.into_bytes().iter() {
+            self.write_u8(*i);
+        }
     }
 }

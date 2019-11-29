@@ -23,3 +23,13 @@ fn test_floats() {
     let f = x.read_f64();
     assert_eq!(r, f);
 }
+
+#[test]
+fn test_strings() {
+    let r = String::from("rotmg");
+    let mut x = binio::new_buffer(7);
+    x.write_string(r.clone());
+    x.index = 0;
+    let f = x.read_string();
+    assert_eq!(r, f);
+}
